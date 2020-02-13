@@ -17,10 +17,10 @@ var (
 )
 
 // IP is an integer representation of an IPv4 address.
-type IP uint32
+type Address uint32
 
 // NewIP converts a IPv4 address string to an IP object.
-func NewIP(address string) (*IP, error) {
+func NewAddress(address string) (*Address, error) {
 	// Check that we get a valid IPv4 address string.
 	if !ipv4Format.MatchString(address) {
 		return nil, ErrInvalidFormat
@@ -31,7 +31,7 @@ func NewIP(address string) (*IP, error) {
 		return nil, fmt.Errorf("failed to convert IPv4 string to int: %v", err)
 	}
 
-	out := IP(addrInt)
+	out := Address(addrInt)
 
 	return &out, nil
 }
@@ -95,7 +95,7 @@ func AddrItoa(addr uint32) string {
 }
 
 // Mask applies the supplied bit mask to the supplied address.
-func Mask(addr, mask *IP) *IP {
-	masked := IP(*addr & *mask)
+func Mask(addr, mask *Address) *Address {
+	masked := Address(*addr & *mask)
 	return &masked
 }

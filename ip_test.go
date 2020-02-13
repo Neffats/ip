@@ -5,23 +5,23 @@ import (
 	"testing"
 )
 
-func TestNewIP(t *testing.T) {
+func TestNewAddress(t *testing.T) {
 	tests := []struct {
 		name  string
 		input string
-		want  IP
+		want  Address
 		err   bool
 	}{
-		{name: "Valid ip address", input: "192.168.1.1", want: IP(3232235777), err: false},
-		{name: "Default route", input: "0.0.0.0", want: IP(0), err: false},
-		{name: "Invalid ip address format", input: "192.168.1.1.1", want: IP(0), err: true},
-		{name: "Invalid ip address", input: "192.168.1.256", want: IP(0), err: true},
-		{name: "Minus IP address", input: "-10.1.1.1", want: IP(0), err: true},
+		{name: "Valid ip address", input: "192.168.1.1", want: Address(3232235777), err: false},
+		{name: "Default route", input: "0.0.0.0", want: Address(0), err: false},
+		{name: "Invalid ip address format", input: "192.168.1.1.1", want: Address(0), err: true},
+		{name: "Invalid ip address", input: "192.168.1.256", want: Address(0), err: true},
+		{name: "Minus Address address", input: "-10.1.1.1", want: Address(0), err: true},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := NewIP(tc.input)
+			got, err := NewAddress(tc.input)
 			if err != nil {
 				if tc.err {
 					return
@@ -41,10 +41,10 @@ func TestNewIP(t *testing.T) {
 func TestMask(t *testing.T) {
 	tests := []struct {
 		name  string
-		input []IP
-		want  IP
+		input []Address
+		want  Address
 	}{
-		{name: "192.168.1.3/255.255.255.0", input: []IP{IP(3232235779), IP(4294967040)}, want: IP(3232235776)},
+		{name: "192.168.1.3/255.255.255.0", input: []Address{Address(3232235779), Address(4294967040)}, want: Address(3232235776)},
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
