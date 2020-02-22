@@ -10,16 +10,20 @@ import (
 )
 
 var (
-	ipv4Format = regexp.MustCompile("^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])$")
+	ipv4Format = regexp.MustCompile("^((25[0-5]|2[0-4][0-9]|[1]?[0-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])$")
 
 	// ErrInvalidFormat is returned for invalid IPv4 addresses.
 	ErrInvalidFormat = errors.New("Invalid IPv4 address format")
 )
 
-// IP is an integer representation of an IPv4 address.
+// Address is an integer representation of an IPv4 address.
 type Address uint32
 
-// NewIP converts a IPv4 address string to an IP object.
+func (a *Address) String() string {
+	return AddrItoa(uint32(*a))
+}
+
+// NewAddress converts a IPv4 address string to an IP object.
 func NewAddress(address string) (*Address, error) {
 	// Check that we get a valid IPv4 address string.
 	if !ipv4Format.MatchString(address) {
